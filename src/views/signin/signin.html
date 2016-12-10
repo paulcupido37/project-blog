@@ -1,0 +1,31 @@
+<div class="content" style="background-color: #F1F1F1">
+	<div class="container" >
+		<br />
+		<div class="col-md-4 col-md-offset-4">
+			<div class="panel panel-default">
+				<div class="panel-heading" style="background-color:#337ab7; color:#FFF; font-size: 20px">Sign In</div>
+				<div class="panel-body">
+					<form method="post" action="/index?m=signin&a=checkLogin">
+						<div class="form-group">
+							<label class="control-label">Username</label>
+							<input name="identity" type="text" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="control-label">Password</label>
+							<input name="credentials" type="password" class="form-control" />
+						</div>
+						<div class="form-group">
+							<button type="submit" name="submit" class="btn btn-block btn-primary" value>Sign In</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+	body {
+		background-color : #FFF;
+	}
+</style>

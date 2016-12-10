@@ -1,0 +1,105 @@
+ul {
+
+	list-style-type  : none;
+	margin           : 0;
+	padding          : 0;
+	width            : 100%;
+	overflow         : hidden;
+	background-color : #FFF;
+}
+
+body {
+
+	margin: 0;
+
+}
+
+li {
+
+	float: left;
+
+}
+
+li a {
+
+	display          : block;
+	color 			 : #000;
+	background-color : #FFF;
+	padding          : 14px 16px;
+	text-decoration  : none;
+	text-align       : center;
+}
+
+li a:hover:not(.active) {
+
+	background-color : #F1F1F1;
+
+}
+
+.background-white {
+	background-color : #FFFFFF;
+}
+
+.background-grey {
+	background-color : #F1F1F1;
+}
+
+.border-grey {
+	border-color     : #CCC;
+}
+
+.no-margin {
+	margin : 0px;
+}
+
+.active {
+	
+	background-color : #F1F1F1;
+	color            : #000;
+
+}
+
+.content {
+	height           : 100%;
+}
+
+.inner-content {
+	background-color : #FFF;
+	margin-top       : 25px;
+	padding          : 0;
+	padding-bottom   : 0;
+	border-radius    : 5px;
+    border           : 1px solid #C0C0C0;
+}
+
+.panel-dashboard {
+	background-color : #337ab7;
+}
+
+.comment-entry {
+	width         : 100%;
+	padding-left  : 15px;
+	padding-right : 15px
+}
+
+body {
+	background-color : #F1F1F1;
+}
+
+
+footer {
+	background-color : #FFF;
+	height           : 100px;
+	overflow         : hidden;
+}
+
+#about-jumbotron {
+    position: relative;
+    background: #000 url("../img/paulcupido.jpg") center center;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    background-size: cover;
+    overflow: hidden;
+    padding: 0px;
+}

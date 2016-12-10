@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Project Artemis</title>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="public/css/style.css"></link>
+   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="public/js/index.js"></script>
+
+    </head>
+    <body>
+    	<header style="background-color:#FFF">
+            <div id="top-bar" style="background-color:#337ab7;">
+                <div class="container">
+                    <p class="pull-left" style="margin-top:10px; color:#FFF;"><strong>Word Warehouse</strong></p>
+                    <a href="mailto:info@wordwarehouse.co.za" class="pull-right" style="margin-top:10px; color:#FFF;">info@wordwarehouse.co.za</a>
+                </div>
+                
+            </div>
+            <div id="bottom-bar">
+                <ul style="margin-top: 0px; margin-bottom:0px">
+                    <div class="container">
+                        <div class="nav navbar-nav navbar-left">
+                            <?php if(!isset($user)) { ?>
+                                <li><a href="index?m=index&a=dashboard">Home</a></li>
+                                <li><a href="index?m=index&a=about">Author</a></li>
+                                <li><a href="index">About</a></li>
+                                
+                            <?php } ?>
+                        </div>
+                        <div class="nav navbar-nav navbar-right">
+                            <li><a href="index?m=index&a=dashboard">Upload Post</a></li>
+                            <li><a id="sign-in-out" class="active" href="index"><?= (!isset($user)) ? 'Log Out': 'Sign In' ?></a></li>
+                        </div>
+                    </div>
+                    <hr style="border-color:#CCC; background-color:#FFF; margin-top:0px; margin-bottom:0px;">
+                </ul>
+            </div>
+    	</header>
+    </body>
+</html>

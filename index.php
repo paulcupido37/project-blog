@@ -4,6 +4,7 @@
     include_once('src/controllers/home.php');
     include_once('src/controllers/signin.php');
     include_once('src/controllers/post.php');
+    include_once('src/models/user.php');
 
     $action = isset($_GET['a']) ? filter_input(INPUT_GET, 'a'): 'index';
     $module = isset($_GET['m']) ? filter_input(INPUT_GET, 'm'): 'index';

@@ -11,7 +11,6 @@
 
 		private $db = null;
 
-		// create a database object and load the user data upon creation
 		public function __construct()
 		{
 			// connect to the database here
@@ -19,6 +18,11 @@
 			if ($this->db->connect_errno) {
     			echo "Failed to connect to MySQL: (" . $this->db->connect_errno . ") " . $this->db->connect_error;
 			}
+		}
+
+		public function __destruct()
+		{
+			$this->db->close();
 		}
 
 
@@ -74,33 +78,6 @@
 
 			return false;
 			
-		}
-
-		/**
-		 * The purpose of this function is verify a user's login details
-		 *
-		 * @access public
-		 * @author Paul Cupido <paulsimeoncupido@gmail.com>
-		 * @param  string $username The user's login name
-		 * @param  string $password The user's login password
-		 * @return boolean          Whether the login credentials were correct
-		 */
-		public function verifyUser($username = null, $password = null) 
-		{
-
-			if (is_string($username) && is_string($password)) {
-
-				$userData = $this->getUserData(null, $username);
-
-				if (is_array($userData) && isset($userData["password"])) {
-					if (hash("sha256", $password) == $userData["password"]) {
-						return true;
-					}	
-				}
-				
-			}
-
-			return false;
 		}
 
 	}

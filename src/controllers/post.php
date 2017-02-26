@@ -11,7 +11,8 @@
 		public function view($postId = 1)
 		{
 			// need the user id to create post model which will load the posts
-			//$model = new PostModel($userId);}
+			// $model = new PostModel();
+			// $model->getPostData($userId, $postName);
 			$stuff = "1";
 				$postData = array(
 					'description' => 'Mother always told me to avoid the South. Father always told me to avoid the whole damn country altogether. “Go to New York City or Los Angeles, if you must, but go nowhere in between. Those parts are filled with cultists and priests who still worship the old gods.” \nIt was from the position of lying strapped to a slab of rock in the middle of nowhere - Thunderbolt, Georgia - with my voice gone hoarse from screaming for help, while a hooded figured chanted incantations to some foreign god that I decided I really should have listened to them.',

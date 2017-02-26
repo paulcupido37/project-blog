@@ -51,14 +51,21 @@
 			$password = $_POST['credentials'];
 
 			$user     = new UserModel();
+			$userData = $user->getUserData(null, $username);
 
-			if ($user->verifyUser($username, $password)) {
+			if (is_array($userData) &&
+				isset($userData['username']) &&
+				isset($userData['password']) &&
+				$this->verifyUser($userData['username'], $userData['password'])) {
 
 				session_start();
 
-				// Save the userId instead of the name. It will be easier to use
-				$_SESSION['username'] = $username;
+				if (isset($userData['user_id'])) {
+					$_SESSION['userId'] = $userData['user_id'];	
+				}
+				
 				$index = new IndexController();
+				
 				// have to modify the head.html's navbar in javascript as the head is not being reset after rerouting through the controller.
 				// either that or I need to route directly to that URL.
 				$index->run('dashboard');
@@ -68,6 +75,33 @@
 				$this->index();
 			}
 			
+		}
+
+		/**
+		 * The purpose of this function is verify a user's login details
+		 *
+		 * @access public
+		 * @author Paul Cupido <paulsimeoncupido@gmail.com>
+		 * @param  string $username The user's login name
+		 * @param  string $password The user's login password
+		 * @return boolean          Whether the login credentials were correct
+		 */
+		public function verifyUser($username = null, $password = null) 
+		{
+
+			if (is_string($username) && is_string($password)) {
+
+				$userData = $this->getUserData(null, $username);
+
+				if (is_array($userData) && isset($userData["password"])) {
+					if (hash("sha256", $password) == $userData["password"]) {
+						return true;
+					}	
+				}
+				
+			}
+
+			return false;
 		}
 
 	}

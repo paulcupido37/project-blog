@@ -1,41 +1,30 @@
 <?php
 
-	class HomeController extends IndexController
-	{
+    /**
+     * The purpose of this class is display and handle the content of the home page
+     * 
+     * @package    controllers
+     * @subpackage BaseController
+     * @author     Paul Cupido <paulsimeoncupido@gmail.com>
+     */
+    class HomeController extends BaseController
+    {
 
-		public function index()
-		{
-			
-		}
+        public function index()
+        {
 
-		public function hello($id)
-		{
-            $array = array(
-            	array(
-            		"name" => "Rise of the Tomb Raider", 
-            		"platform" => "Xbox One, Xbox 360, PC", 
-            		"description" => ""
-            	), 
-            	array(
-            		"name" => "Mirror's Edge: Catalyst", 
-            		"platform" => "", 
-            		"description" => ""
-            	), 
-            	array(
-            		"name" => "Final Fantast XV",
-            		"platform" => "PS4, Xbox One",
-            		"description" => ""
-            	), 
-            	array(
-            		"name" => "Uncharted 4: A Thief's End",
-            		"platform" => "PS4",
-            		"description" => ""
-            	)
-            );
-            
-            print (json_encode($array[$id]));
-		}
- 
-	}
+        }
+
+        public function dashboard()
+        {
+              $this->display('src/views/home/dashboard.html');
+        }
+
+        public function about()
+        {
+              $this->display('src/views/home/about.html');
+        }
+
+    }
 
 ?>

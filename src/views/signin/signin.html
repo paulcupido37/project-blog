@@ -1,31 +1,47 @@
+<script src="public/js/index.js"></script>
 <div class="content" style="background-color: #F1F1F1">
-	<div class="container" >
-		<br />
-		<div class="col-md-4 col-md-offset-4">
-			<div class="panel panel-default">
-				<div class="panel-heading" style="background-color:#337ab7; color:#FFF; font-size: 20px">Sign In</div>
-				<div class="panel-body">
-					<form method="post" action="/index?m=signin&a=checkLogin">
-						<div class="form-group">
-							<label class="control-label">Username</label>
-							<input name="identity" type="text" class="form-control" />
-						</div>
-						<div class="form-group">
-							<label class="control-label">Password</label>
-							<input name="credentials" type="password" class="form-control" />
-						</div>
-						<div class="form-group">
-							<button type="submit" name="submit" class="btn btn-block btn-primary" value>Sign In</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container" >
+        <br />
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:#337ab7; color:#FFF; font-size: 20px">Sign In</div>
+                <div class="panel-body">
+                    <div id="error-dialog" class="alert alert-danger" <?php if (!isset($params['failedLogin']) || $params['failedLogin'] != 1) { ?> style="display: none;" <?php } ?>>
+                        <strong>Error</strong> - The login credentials are incorrect.
+                    </div>
+                    <div id="success-dialog" class="alert alert-success" <?php if (isset($params['failedLogin']) || !isset($params['message'])) { ?> style="display: none;" <?php } ?>>
+                        <strong>Success</strong> - <?= $params['message']?>
+                    </div>
+                    <form method="post" action="/index?m=signin&a=processLoginAttempt">
+                        <div class="form-group">
+                            <label class="control-label">Username</label>
+                            <input name="identity" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <input name="credentials" type="password" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="signin-submit" name="signin-submit" class="btn btn-block btn-primary" value>Sign In</button>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <a href='index?m=signin&a=register'>Create Account</a>
+                            </div>
+                            <div class="col-offset-md-6">
+                                <a href='index?m=signin&a=forgot'>Forgot Password</a>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <style>
-	body {
-		background-color : #FFF;
-	}
+    body {
+        background-color : #FFF;
+    }
 </style>

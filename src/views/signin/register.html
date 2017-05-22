@@ -1,0 +1,45 @@
+<script src="public/js/index.js"></script>
+<div class="content" style="background-color: #F1F1F1">
+    <div class="container" >
+        <br />
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:#337ab7; color:#FFF; font-size: 20px">Create New Account</div>
+                <div class="panel-body">
+                    <div id="error-dialog" class="alert alert-danger" <?php if (!isset($params['errors'])) { ?> style="display: none;" <?php } ?>>
+                        <strong>Error</strong> - <?= $params['errors'] ?>
+                    </div>
+                    <form method="post" action="/index?m=signin&a=registerUser">
+                        <div class="form-group">
+                            <label class="control-label">Username</label>
+                            <input name="username" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email Address</label>
+                            <input name="email" type="text" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Password</label>
+                            <input name="password" type="password" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" id="register-submit" name="register-submit" class="btn btn-block btn-primary" value>Register</button>
+                        </div>
+                        <div class="col-md-offset-4">
+                            <div>
+                                <a href='index?m=signin&a=index'>Return to Sign In</a>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color : #FFF;
+    }
+</style>

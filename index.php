@@ -5,8 +5,8 @@
     include_once('src/controllers/signin.php');
     include_once('src/controllers/post.php');
     include_once('src/models/user.php');
-    include_once('src/models/post.php');
     include_once('src/models/model.php');
+    include_once('src/models/post.php');
 
     $action = isset($_GET['a']) ? filter_input(INPUT_GET, 'a'): 'index';
     $module = isset($_GET['m']) ? filter_input(INPUT_GET, 'm'): 'index';
@@ -15,11 +15,11 @@
 
     switch($module) {
         case('greeting'):
-            $controller = new IndexController();
+            $controller = new HomeController();
         break;
 
         case('home'):
-            $controller = new IndexController();
+            $controller = new HomeController();
         break;
 
         case('signin'):
@@ -35,7 +35,5 @@
             $controller = new SignInController();
         break;
     }
-    
-    include('src/views/layout/head.html');
+
     $controller->run($action);
-    include('src/views/layout/foot.html');

@@ -1,6 +1,11 @@
 
-$(document).ready(function() {
-    console.log('here');
+jQuery(document).ready(function() {
+
+    jQuery("#signin-submit").click(function() {
+        jQuery('#bottom-bar-1').hide();
+        jQuery('#bottom-bar-2').show();
+
+    });
    /* $("#view-button").click(function() {
         
         $.ajax({

@@ -8,7 +8,6 @@
    		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src="public/js/index.js"></script>
-
     </head>
     <body>
     	<header style="background-color:#FFF">
@@ -19,27 +18,35 @@
                 </div>
                 
             </div>
-            <div id="bottom-bar">
-                <ul style="margin-top: 0px; margin-bottom:0px">
-                    <div class="container">
-                        <div class="nav navbar-nav navbar-left">
-                            <?php if(session_status() == PHP_SESSION_NONE) { ?>
-                                <li id="home"><a href="index?m=index&a=dashboard">Home</a></li>
-                                <li id="author"><a href="index?m=index&a=about">My Profile</a></li>
-                                <li id="about"><a href="index">About</a></li>
-                                
-                            <?php } ?>
+            <?php if (session_status() == 2) { ?>
+                <div id="bottom-bar-1">
+                    <ul style="margin-top: 0px; margin-bottom:0px">
+                        <div class="container">
+                            <div class="nav navbar-nav navbar-left">
+                                    <li id="home"><a href="index?m=index&a=dashboard">Home</a></li>
+                                    <li id="about"><a href="index">My Warehouse</a></li>
+                                    <li><a href="index?m=index&a=dashboard">Upload Post</a></li>
+                            </div>
+                            <div class="nav navbar-nav navbar-right">
+                                    
+                                <li><a id="sign-in-out" class="active" href="logout">Log Out</a></li>
+                            </div>
                         </div>
-                        <div class="nav navbar-nav navbar-right">
-                            <?php if(session_status() == PHP_SESSION_NONE) { ?>
-                                <li><a href="index?m=index&a=dashboard">Upload Post</a></li>
-                            <?php } ?>
-                            <li><a id="sign-in-out" class="active" href="index"><?= (session_status() == 2) ? 'Log Out': 'Sign In' ?></a></li>
+                        <hr style="border-color:#CCC; background-color:#FFF; margin-top:0px; margin-bottom:0px;">
+                    </ul>
+                </div>
+            <?php } else { ?>        
+                <div id="bottom-bar-2">
+                    <ul style="margin-top: 0px; margin-bottom:0px">
+                        <div class="container">
+                            <div class="nav navbar-nav navbar-right">
+                                <li><a id="sign-in-out" class="active" href="index">Sign In</a></li>
+                            </div>
                         </div>
-                    </div>
-                    <hr style="border-color:#CCC; background-color:#FFF; margin-top:0px; margin-bottom:0px;">
-                </ul>
-            </div>
+                        <hr style="border-color:#CCC; background-color:#FFF; margin-top:0px; margin-bottom:0px;">
+                    </ul>
+                </div>
+            <?php } ?>
     	</header>
     </body>
 </html>

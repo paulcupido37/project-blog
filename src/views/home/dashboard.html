@@ -1,103 +1,101 @@
 <div class="container">
-	<br/>
-	<div class="col-md-4">
-		<div class="panel panel-dashboard">
-			<div class="panel-body">
-				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Search for posts" />
-					<span class="input-group-btn">
-						<button class="btn btn-default">
-							<span class="glyphicon glyphicon-search"></span>
-						</button>
-					</span>
-				</div>
-			</div>
-		</div>
+    <br/>
+    <div class="col-md-4">
+        <div class="panel panel-dashboard">
+            <div class="panel-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for posts" />
+                    <span class="input-group-btn">
+                        <button class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </div>
 
-		<div class="panel panel-dashboard">
-			<div class="panel-body">
-				<h4 style="color: white">Recent Posts</h4>
-					<div class="log-md-6">
-	                	<ul style="background-color: 337ab7; font-size: 80%">
-	                        <?php if (isset($recentPosts)) { foreach ($recentPosts as $key => $value) { ?>
-	                            <li><a href="#<?= $key ?>"><strong><?= $value; ?></strong></a></li>
-	                        <?php } }?>
-	                        <li><a href="#"><strong>Pure Light</strong></a></li>
-		                 	<li><a href="#"><strong>From the Other Side</strong></a></li>
-							<li><a href="#"><strong>Phantom Dissonance</strong></a></li>
-							<li><a href="#"><strong>Mortal Kombat: Legacy</strong></a></li>
-							<li><a href="#"><strong>The Indifferent Sons</strong></a></li>
-							<li><a href="#"><strong>Metallic FIre</strong></a></li>
-						</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div id="user-posts" class="col-md-8">
-		<?php
-			$count = 0;
-			if (isset($post_details) && is_array($post_details) && count($post_details) > 0) {
-				foreach($post_details as $key => $value) { ?>
-					<div class="panel panel-default">
-						<div class="panel-body">
-							<a style="font-size: 20px" href="#"><strong><?= $post_details['title']; ?></strong></a>
-							<p style="align:center">by <a href="#" style="font-family: monospace"><?= $post_details['author']; ?></a></p>
-							<hr />
-							<p style="font-size: 12px"><?= $post_details['description'] ?></p>
-							<hr />
-							<a id="read-post-<?= $count ?>" class="btn btn-default btn-primary" href="/index?m=post&a=view">Read more</a>
-							<a id="comment-post-<?= $count ?>" class="btn btn-default" style="background-color: #FFF; color: #337ab7">View Comments</a>
-						</div>
-					</div>					
-				<?php $count++; } } ?>
+        <div class="panel panel-dashboard">
+            <div class="panel-body">
+                <h4 style="color: white">Recent Posts</h4>
+                    <div class="log-md-6">
+                        <ul style="background-color: 337ab7; font-size: 80%">
+                            <?php if (isset($recentPosts)) { foreach ($recentPosts as $key => $value) { ?>
+                                <li><a href="#<?= $key ?>"><strong><?= $value; ?></strong></a></li>
+                            <?php } }?>
+                            <li><a href="#"><strong>Pure Light</strong></a></li>
+                            <li><a href="#"><strong>From the Other Side</strong></a></li>
+                            <li><a href="#"><strong>Phantom Dissonance</strong></a></li>
+                            <li><a href="#"><strong>Mortal Kombat: Legacy</strong></a></li>
+                            <li><a href="#"><strong>The Indifferent Sons</strong></a></li>
+                            <li><a href="#"><strong>Metallic FIre</strong></a></li>
+                        </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="blog-posts" class="col-md-8">
+        <?php
+            $count = 0;
 
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<h4><strong>Pure Light</strong></h4>
-				<p style="align:center">by <a href="#" style="font-family: monospace">Paul Cupido</a></p>
-				<hr />
-				<p style="font-size: 12px">My mother always told me to avoid the south. My father always told me to avoid the whole damn country altogether. Go to Los Angeles or go to New York City but go nowhere in between. The only things there are cultists and priests who still worship the old gods. It was from the position of being tied to a rock in the middle of nowhere - Thunderbolt, Georgia - that I decided I really should have listened to them.</p>
-				<hr />
-				<a id="read-post-light" class="btn btn-default btn-primary" href="/index?m=post&a=index">Read more</a>
-				<a id="comment-post-light" class="view-comments btn btn-default" style="background-color: #FFF; color: #337ab7">View Comments</a>
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<h4><strong>That Day</strong></h4>
-				<p style="align:center">by <a href="#" style="font-family: monospace">Paul Cupido</a></p>
-				<hr />
-				<p style="font-size: 12px">As she stared at the motionless body in front of her, Claire Ricrant took a seat. When she was younger her father had given her some advice that she now turned over in her mind. "The worst feeling in the world is when something you love lets you down. When it changes and becomes something you hate. You then have to learn to let go of your beloved as you remember it so you can deal with the twisted remains of what it has become." If Claire was the kind of person who prayed then she would be on her knees, praying for that not to be true.</p>
-				<hr />
-				<a class="btn btn-default btn-primary">Read more</a>
-				<a id="comment-post-day" class="view-comments btn btn-default" style="background-color: #FFF; color: #337ab7">View Comments</a>
-			</div>
-		</div>
+            if (isset($params['blogPosts']) && is_array($params['blogPosts']) && count($params['blogPosts']) > 0) {
 
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<h4><strong>Mortal Kombat: Legacy</strong></h4>
-				<p style="align:center">by <a href="#" style="font-family: monospace">Paul Cupido</a></p>
-				<hr />
-				<p style="font-size: 12px">"Your face is like Sonya's" the old master said, getting up from where he had been meditating.<br /><br />“Shut the fuck up about my mother.” Cassandra Cage replied, dropping her backpack and tossing her aviator sunglasses by the wayside. Her grey eyes were a whirlwind of rage and hurt. Those eyes said everything. This young woman, with her punching gloves and stern expression, had not tracked this man to a temple in the middle nowhere for training or friendly sparring. No. She was here for one thing: revenge. 
-				</p>
-				<hr />
-				<a class="btn btn-default btn-primary">Read more</a>
-				<a id="comment-post-day" class="view-comments btn btn-default" style="background-color: #FFF; color: #337ab7">View Comments</a>
-			</div>
-		</div>
+                foreach ($params['blogPosts'] as $blogPost) { ?>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <a style="font-size: 20px; color: black" href="#"><strong><?= $blogPost['title']; ?></strong></a>
+                            <p style="align:center">by <a href="#" style="font-family: monospace"><?= $blogPost['author']; ?></a></p>
+                            <hr />
+                            <p style="font-size: 12px"><?= $blogPost['description'] ?></p>
+                            <hr />
+                            <a id="read-post-<?= $blogPost['id'] ?>" value="<?= $blogPost['id'] ?>" class="btn btn-default btn-primary view-blog-post" href="/index?m=post&a=view">Read more</a>
+                            <a id="comment-post-<?= $blogPost['id'] ?>" class="btn btn-default" style="background-color: #FFF; color: #337ab7">View Comments</a>
+                        </div>
+                    </div>
+                <?php } ?>
 
-		<div class="col-md-offset-5" style="margin-bottom: 20px">
-			<a class="btn btn-default" style="background-color: #FFF; color: #337ab7">View More Stories</a>
-		</div>
+                <div class="col-md-offset-5" style="margin-bottom: 20px">
+                    <a class="btn btn-default" style="background-color: #FFF; color: #337ab7">View More Stories</a>
+                </div>
 
-	</div>
+            <?php } else { ?>
 
-	<?php include('src/views/home/comments.html'); ?>
+                <p>No entries available at present. Please add a new blog post.</p>
+ 
+            <?php } ?>       
+
+    </div>
+
+    <?php include('src/views/home/comments.html'); ?>
 
 
 </div>
 <!-- Add in a modal for the comments section and add some javascript for the searching (create the model and fill it in later) 
 Create the post view and the authors view. Use a modal for the contact us section (or maybe just throw it in the footer)
 -->
+<!-- Need to post the data to the PostController via AJAX -->
 
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function() {
+
+        jQuery(".view-blog-post").click(function() {
+        
+            var blogPostId = jQuery(this).val();
+
+            jQuery.ajax({
+                type    : 'POST', 
+                url     : 'index.php?m=home&a=viewBlogPost',
+                data    : {postId : blogPostId},
+                cache   : false,
+                success : function(result) {
+
+                
+
+            }});
+        });
+
+    });
+
+</script>

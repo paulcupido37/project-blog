@@ -11,7 +11,7 @@
 
         protected $db = null;
 
-        protected function __construct()
+        protected function __construct($database)
         {
             if (is_string($database)) {
                 $this->db = new mysqli("localhost", "root", "", "wordwarehouse");
@@ -44,6 +44,18 @@
         protected function executeQuery($sql, $params = null, $paramTypes = null)
         {
             // want to return either false or the data returned from the query as an array
+        }
+
+        public function get_func_arg_names($funcName)
+        {
+            $function = new ReflectionFunction($funcName);
+            $result   = array();
+
+            foreach ($function->getParameters() as $param) {
+                $result[] = $param->name;
+            }
+
+            return $result;
         }
 
     }

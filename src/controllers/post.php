@@ -10,6 +10,12 @@
     class PostController extends BaseController
     {
 
+        /**
+         * The purpose of this variable is to store a PostModel object
+         *
+         * @access private
+         * @var    PostModel
+         */
         private $postModel;
 
         public function __construct()
@@ -18,7 +24,7 @@
         }
 
         /**
-         * The purpose of this function is to display the post index 
+         * The purpose of this function is to display a blog post
          *
          * @access public
          * @return void
@@ -40,7 +46,7 @@
         public function viewBlogPost($userId = null, $postId = null)
         {
 
-            $blogPostData = $this->db->model->retrieveBlogPost($userId, $postId);
+            $blogPostData = $this->db->model->retrieveBlogPosts($userId, $postId);
 
             if (is_array($blogPostData)
                 && count($blogPostData) > 0
@@ -49,7 +55,6 @@
                 && isset($blogPostData['message'])
                 && $blogPostData['message'] === 'Post retrieval success') {
 
-                $this->setViewParam('error', false);
                 $this->setViewParam('blogPostData', $blogPostData['data']);
 
             } else {
@@ -61,6 +66,18 @@
 
             $this->display('src/views/post/index.html');
 
+        }
+
+        /**
+         * The purpose of this function is to retrieve blog posts
+         *
+         * @access public
+         * @return array
+         */
+        public function retrieveBlogPostData($userId = null, $postId = null)
+        {
+            $blogPostData = $this->db->model->retrieveBlogPost($userId, $postId);
+            return $blogPostData;
         }
 
         /**

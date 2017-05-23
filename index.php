@@ -7,6 +7,7 @@
     include_once('src/models/user.php');
     include_once('src/models/model.php');
     include_once('src/models/post.php');
+    include_once('src/models/home.php');
 
     $action = isset($_GET['a']) ? filter_input(INPUT_GET, 'a'): 'index';
     $module = isset($_GET['m']) ? filter_input(INPUT_GET, 'm'): 'index';

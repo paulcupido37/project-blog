@@ -6,7 +6,7 @@
      * @package src/models
      * @author  Paul Cupido <paulsimeoncupido@gmail.com>
      */
-    class Model
+    class BaseModel
     {
 
         protected $db = null;

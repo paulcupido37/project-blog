@@ -6,7 +6,7 @@
      * @package src/models
      * @author  Paul Cupido <paulsimeoncupido@gmail.com>
      */
-    class PostModel extends Model
+    class PostModel extends BaseModel
     {
 
         public function __construct()

@@ -16,11 +16,11 @@
          * @access private
          * @var    PostModel
          */
-        private $postModel;
+        private $model;
 
         public function __construct()
         {
-            $this->db->postModel = new PostModel();
+            $this->model = new PostModel();
         }
 
         /**
@@ -43,19 +43,23 @@
          * @param  $postId A unique post identifier
          * @return void
          */
-        public function viewBlogPost($userId = null, $postId = null)
+        public function view()
         {
+            // need to move the session logic into the base controllers and implement a call method so
+            // session checks happen whenever a function is called
+            // also need to implement a uuid check or something
 
-            $blogPostData = $this->db->model->retrieveBlogPosts($userId, $postId);
+            $id           = filter_input(INPUT_GET, "id");
+            $blogPostData = $this->model->retrieveBlogPosts(null, 2);
 
             if (is_array($blogPostData)
                 && count($blogPostData) > 0
                 && isset($blogPostData['success'])
                 && $blogPostData['success']
                 && isset($blogPostData['message'])
-                && $blogPostData['message'] === 'Post retrieval success') {
+                && $blogPostData['message'] == 'Post retrieval success') {
 
-                $this->setViewParam('blogPostData', $blogPostData['data']);
+                $this->setViewParam('blogPost', $blogPostData['data'][0]);
 
             } else {
 
@@ -76,7 +80,7 @@
          */
         public function retrieveBlogPostData($userId = null, $postId = null)
         {
-            $blogPostData = $this->db->model->retrieveBlogPost($userId, $postId);
+            $blogPostData = $this->model->retrieveBlogPost($userId, $postId);
             return $blogPostData;
         }
 
@@ -91,7 +95,7 @@
         public function saveBlogPost($data = null, $postId = null)
         {
 
-            $response = $this->db->model->saveNewBlogPost($data, $postId);
+            $response = $this->model->saveNewBlogPost($data, $postId);
 
             echo json_encode($response);
 

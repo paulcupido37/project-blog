@@ -31,7 +31,7 @@
         public function dashboard()
         {
 
-            $response = $this->model->retrieveBlogPosts();
+            $response = $this->model->retrieveAllBlogPosts();
 
             if (is_array($response)
                 && count($response) > 0

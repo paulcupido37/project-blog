@@ -2,9 +2,9 @@
 <div id="post-heading">
     <div class="jumbotron">
         <div style="margin-left: 50px; margin-right: 50px;">
-            <h1>Pure Light</h1>
-            <h4>The Witching</h4>
-            <p>By <a href="#" style="font-family: monospace">Paul Cupido</a></p>
+            <h1><?= $params['blogPost']['title'] ?></h1>
+            <h4><?= $params['blogPost']['series'] ?></h4>
+            <p>By <a href="#" style="font-family: monospace"><?=$params['blogPost']['author']?></a></p>
             <a id="comment-post-light" class="view-comments btn btn-default btn-primary">View Comments</a>
         </div>
     </div>
@@ -14,9 +14,11 @@
     <hr style="border-color: #CCC"/>
     <div class="row">
         <div class="col-md-offset-2 col-md-8">
-        <?php if (is_array($blogPostData) && count($postData) > 0) { ?>
-            <p style="font-size:18px"><?= $blogPostData['content'] ?></p>
-        <?php } ?>
+        <?php if (isset($params["blogPost"]) && is_array($params["blogPost"]) && count($params['blogPost']) > 0) { ?>
+            <p style="font-size:18px"><?= html_entity_decode(nl2br($params['blogPost']['data']), ENT_COMPAT, 'UTF-8') ?></p>
+        <?php } else { ?>
+            <p style="font-size:18px"><?= $params['error_message'] ?></p>
+        <?php }?>
         <p style="font-size:18px"></p>
         </div>
     </div>

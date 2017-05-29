@@ -47,7 +47,7 @@
                             <hr />
                             <p style="font-size: 12px"><?= $blogPost['description'] ?></p>
                             <hr />
-                            <a id="read-post-<?= $blogPost['id'] ?>" value="<?= $blogPost['id'] ?>" class="btn btn-default btn-primary view-blog-post" href="/index?m=post&a=view">Read more</a>
+                            <a id="read-post-<?= $blogPost['id'] ?>" value="<?= $blogPost['id'] ?>" class="btn btn-default btn-primary view-blog-post" href="index?m=post&a=view&id=<?=$blogPost['id']?>">Read more</a>
                             <a id="comment-post-<?= $blogPost['id'] ?>" class="btn btn-default" style="background-color: #FFF; color: #337ab7">View Comments</a>
                         </div>
                     </div>
@@ -72,30 +72,3 @@
 <!-- Add in a modal for the comments section and add some javascript for the searching (create the model and fill it in later) 
 Create the post view and the authors view. Use a modal for the contact us section (or maybe just throw it in the footer)
 -->
-<!-- Need to post the data to the PostController via AJAX -->
-
-
-
-<script type="text/javascript">
-
-    jQuery(document).ready(function() {
-
-        jQuery(".view-blog-post").click(function() {
-        
-            var blogPostId = jQuery(this).val();
-
-            jQuery.ajax({
-                type    : 'POST', 
-                url     : 'index.php?m=home&a=viewBlogPost',
-                data    : {postId : blogPostId},
-                cache   : false,
-                success : function(result) {
-
-                
-
-            }});
-        });
-
-    });
-
-</script>

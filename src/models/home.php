@@ -5,12 +5,22 @@
 
 		public function __construct()
         {
-            parent::__construct('posts');
+            parent::__construct();
         }
 
         public function __destruct()
         {
             parent::__destruct();
+        }
+
+        public function retrieveAllBlogPosts()
+        {
+
+            $sql      = "SELECT * FROM wordwarehouse.posts";
+            $response = $this->executeQuery($sql);
+
+            return $response;
+
         }
 
         /**

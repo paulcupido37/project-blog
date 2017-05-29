@@ -104,10 +104,10 @@
             if ((is_numeric($postId) && $postId > 0)) {
                 $parameters        .= "i";
                 $searchValues[]     = $postId;
-                $searchExpression[] = "post_id = (?)";
+                $searchExpression[] = "id = (?)";
             }
 
-            $searchConditions = (count($expressions) > 0) ? "WHERE " . implode(" AND ", $searchExpression) : "";
+            $searchConditions = (count($searchExpression) > 0) ? " WHERE " . implode(" AND ", $searchExpression) : "";
 
             $sql   = "SELECT * FROM posts" . $searchConditions;
             $query = $this->db->prepare($sql);

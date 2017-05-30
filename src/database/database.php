@@ -18,7 +18,7 @@
 
             if (is_string($database) && !empty($database)) {
 
-                $this->db = new mysqli("localhost", "root", "", $database);
+                $this->db = new mysqli(SERVER, USERNAME, PASSWORD, $database);
 
                 if ($this->db->connect_errno) {
                     echo "Failed to connect to MySQL: (" . $this->db->connect_errno . ") " . $this->db->connect_error;
@@ -34,13 +34,23 @@
          * @param  array $params An array of parameters to be saved
          * @return array         An array of response data
          */
-        public function executeQuery($sql = '', $params = array())
+        public function executeQuery($sql = '', $paramTypes = '', $paramValues = array())
         {
 
-            $response['success'] = false; 
+            $response['success'] = false;
 
             if (!is_string($sql) || empty($sql)) {
-                $response['message'] = 'SQL variable incorrect';
+                $response['message'] = 'Invalid SQL passed to query';
+                return $response;
+            }
+
+            if (!is_array($paramsValues) || count($paramsValues) <= 0) {
+                $response['message'] = 'Incorrect parameter data passed to query.';
+                return $response;
+            }
+
+            if (!is_string($paramTypes) || empty($paramTypes)) {
+                $response['message'] = 'No parameter types passed to query.';
                 return $response;
             }
 
@@ -51,7 +61,7 @@
                return $response;
             }
 
-            // need to bind the parameters here
+            call_user_func_array(array($query, 'bind_param', $paramTypes, $paramValues);
 
             if (!$query->execute()) {
                 $response['message'] = "Execution failed: (" . $query->errno . ") " . $query->error;

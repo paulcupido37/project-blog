@@ -4,13 +4,14 @@
 // I may want to think about the structure of my routes: [controller]/[action]/[variable1]/[variable2]
 // I will need to do session timeouts and general checks to see whether the user is still signed in
 
-    include_once('src/controllers/index.php');
+    include_once('application/config.php');
+    include_once('src/controllers/base.php');
     include_once('src/controllers/home.php');
     include_once('src/controllers/signin.php');
     include_once('src/controllers/post.php');
     include_once('src/database/database.php');
-    include_once('src/models/user.php');
     include_once('src/models/model.php');
+    include_once('src/models/user.php');
     include_once('src/models/post.php');
     include_once('src/models/home.php');
 

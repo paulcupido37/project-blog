@@ -30,6 +30,7 @@
          */
         public function saveNewBlogPost($userId = null, $data = null)
         {
+            
             if (!is_numeric($userId) || $userId <= 0) {
                 $response['success'] = false;
                 $response['message'] = 'A credentials error occurred when trying to save your blog post. Please try again later.';

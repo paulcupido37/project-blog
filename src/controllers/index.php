@@ -10,11 +10,19 @@
     class BaseController
     {
 
+        /**
+         * The purpose of this variable is to store a user model object
+         * 
+         * @access protected
+         * @var    UserModel
+         */
          protected $user = null;
 
         /**
-         * View parameter
-         * @var array
+         * The purpose of this variable is store parameters to be used on the view
+         *
+         * @access private
+         * @var    array
          */
         private $params = array();
 
@@ -33,7 +41,7 @@
         }
 
         /**
-         * Function to set a view parameter
+         * The purpose of this function to set a view parameter
          *
          * @access public
          * @param  string $name Name of the view parameter
@@ -44,13 +52,13 @@
         {
 
             if (is_string($name) && isset($value)) {
-                $this->params[$name] = $value;    
+                $this->params[$name] = $value;
             }
 
         }
 
         /**
-         * Function to display a view file
+         * The purpose of this function to display a view file
          *
          * @access public
          * @param  string $fileName Name of the file to be displayed
@@ -89,7 +97,10 @@
 
         /**
          * The purpose of this function is standardise response arrays coming from the model to the controller
+         *
          * @todo Implement the function
+         * @access private
+         * @param  array $response An array of data
          * @return array
          */
         public function transportMessage($response)

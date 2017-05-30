@@ -6,7 +6,7 @@
      * @package src/models
      * @author  Paul Cupido <paulsimeoncupido@gmail.com>
      */
-    class PostModel extends Model
+    class PostModel extends BaseModel
     {
 
         public function __construct()
@@ -20,7 +20,7 @@
         }
     
         /**
-         * The purpose of this function is load post data
+         * The purpose of this function is to load post data
          *
          * @access public
          * @todo   Write the INSERT statement out
@@ -87,14 +87,29 @@
          * @param  integer $postId A unique blog post identifier
          * @return array|false;
          */
-        public function retrieveBlogPost($userId = null, $postId = null)
+        public function retrieveBlogPosts($userId = null, $postId = null)
         {
 
-            $response   = null;
-            $searchByUserId = (is_numeric($userId) && $userId > 0) ? "WHERE user_id = (?)" : "";
-            $searchByPostId = (is_numeric($postId) && $postId > 0) ? "post_id = (?)" : "";
+            $response         = null;
+            $parameters       = "";
+            $searchValues     = array();
+            $searchExpression = array();
 
-            $sql   = "SELECT * FROM posts" . $searchByUserId;
+            if ((is_numeric($userId) && $userId > 0)) {
+                $parameters        .= "i";
+                $searchValues[]     = $userId;
+                $searchExpression[] = "user_id = (?)";
+            }
+
+            if ((is_numeric($postId) && $postId > 0)) {
+                $parameters        .= "i";
+                $searchValues[]     = $postId;
+                $searchExpression[] = "id = (?)";
+            }
+
+            $searchConditions = (count($searchExpression) > 0) ? " WHERE " . implode(" AND ", $searchExpression) : "";
+
+            $sql   = "SELECT * FROM posts" . $searchConditions;
             $query = $this->db->prepare($sql);
 
             if (!$query) {
@@ -104,15 +119,27 @@
                return $response;
             }
 
-            if (!empty($searchById) && !$query->bind_param("i", $userId)) {
-                $response['message'] = "Binding parameters failed: (" . $query->errno . ") " . $query->error;
-                $response['success'] = false;
+            if (!empty($searchConditions)) {
 
-                return $response;
+                if (count($searchConditions) > 1
+                    && !$query->bind_param($parameters, $searchValues[0], $searchValues[1])) {
+
+                    $response['message'] = "Binding parameters failed: (" . $query->errno . ") " . $query->error;
+                    $response['success'] = false;
+
+                    return $response;
+
+                } else if (!$query->bind_param($parameters, $searchValues)) {
+
+                    $response['message'] = "Binding parameters failed: (" . $query->errno . ") " . $query->error;
+                    $response['success'] = false;
+                    
+                    return $response;
+                }
             }
 
             if (!$query->execute()) {
-                $response['message'] = "Execute failed: (" . $query->errno . ") " . $query->error;
+                $response['message'] = "Execution failed: (" . $query->errno . ") " . $query->error;
                 $response['success'] = false;
 
                 return $response;

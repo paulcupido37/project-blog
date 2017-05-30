@@ -37,7 +37,7 @@
                 }
 
                 $homeController = new HomeController();
-                $homeController->run('dashboard');
+                $homeController->dashboard();
             }
         }
 

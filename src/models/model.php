@@ -6,19 +6,16 @@
      * @package src/models
      * @author  Paul Cupido <paulsimeoncupido@gmail.com>
      */
-    class Model
+    class BaseModel extends DatabaseAccess
     {
 
-        protected $db = null;
-
-        protected function __construct()
+        public function __construct($database = null)
         {
-            if (is_string($database)) {
-                $this->db = new mysqli("localhost", "root", "", "wordwarehouse");
-                if ($this->db->connect_errno) {
-                    echo "Failed to connect to MySQL: (" . $this->db->connect_errno . ") " . $this->db->connect_error;
-                }
+            if (!is_string($database) || empty($database)) {
+                $database = 'wordwarehouse';
             }
+
+            parent::__construct($database);
         }
 
         /**
@@ -28,7 +25,7 @@
          * @return void
          *
          */
-        protected function __destruct()
+        public function __destruct()
         {
             $this->db->close();
         }
@@ -41,9 +38,18 @@
          * @param  array $paramTypes Array of parameter types
          * @return array|false       Array containg the data from the query
          */
-        protected function executeQuery($sql, $params = null, $paramTypes = null)
+        
+
+        public function get_func_arg_names($funcName)
         {
-            // want to return either false or the data returned from the query as an array
+            $function = new ReflectionFunction($funcName);
+            $result   = array();
+
+            foreach ($function->getParameters() as $param) {
+                $result[] = $param->name;
+            }
+
+            return $result;
         }
 
     }

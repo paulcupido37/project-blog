@@ -10,6 +10,19 @@
     class HomeController extends BaseController
     {
 
+        /**
+         * The purpose of this variable is to store a PostModel object
+         *
+         * @access private
+         * @var    HomeModel
+         */
+        private $model;
+
+        public function __construct()
+        {
+            $this->model = new HomeModel();
+        }
+
         public function index()
         {
 
@@ -17,7 +30,25 @@
 
         public function dashboard()
         {
-              $this->display('src/views/home/dashboard.html');
+
+            $response = $this->model->retrieveAllBlogPosts();
+
+            if (is_array($response)
+                && count($response) > 0
+                && isset($response['success'])
+                && $response['success']
+                && isset($response['data'])) {
+
+                $this->setViewParam('blogPosts', $response['data']);
+
+            } else {
+
+                $this->setViewParam('errors', $response['message']);
+
+            }
+            
+            $this->display('src/views/home/dashboard.html');
+        
         }
 
         public function about()

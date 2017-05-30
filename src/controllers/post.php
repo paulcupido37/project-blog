@@ -10,15 +10,21 @@
     class PostController extends BaseController
     {
 
-        private $postModel;
+        /**
+         * The purpose of this variable is to store a PostModel object
+         *
+         * @access private
+         * @var    PostModel
+         */
+        private $model;
 
         public function __construct()
         {
-            $this->db->postModel = new PostModel();
+            $this->model = new PostModel();
         }
 
         /**
-         * The purpose of this function is to display the post index 
+         * The purpose of this function is to display a blog post
          *
          * @access public
          * @return void
@@ -37,20 +43,23 @@
          * @param  $postId A unique post identifier
          * @return void
          */
-        public function viewBlogPost($userId = null, $postId = null)
+        public function view()
         {
+            // need to move the session logic into the base controllers and implement a call method so
+            // session checks happen whenever a function is called
+            // also need to implement a uuid check or something
 
-            $blogPostData = $this->db->model->retrieveBlogPost($userId, $postId);
+            $id           = filter_input(INPUT_GET, "id");
+            $blogPostData = $this->model->retrieveBlogPosts(null, 2);
 
             if (is_array($blogPostData)
                 && count($blogPostData) > 0
                 && isset($blogPostData['success'])
                 && $blogPostData['success']
                 && isset($blogPostData['message'])
-                && $blogPostData['message'] === 'Post retrieval success') {
+                && $blogPostData['message'] == 'Post retrieval success') {
 
-                $this->setViewParam('error', false);
-                $this->setViewParam('blogPostData', $blogPostData['data']);
+                $this->setViewParam('blogPost', $blogPostData['data'][0]);
 
             } else {
 
@@ -64,6 +73,18 @@
         }
 
         /**
+         * The purpose of this function is to retrieve blog posts
+         *
+         * @access public
+         * @return array
+         */
+        public function retrieveBlogPostData($userId = null, $postId = null)
+        {
+            $blogPostData = $this->model->retrieveBlogPost($userId, $postId);
+            return $blogPostData;
+        }
+
+        /**
          * The purpose of this function is to save a new blog post
          *
          * @access public
@@ -74,7 +95,7 @@
         public function saveBlogPost($data = null, $postId = null)
         {
 
-            $response = $this->db->model->saveNewBlogPost($data, $postId);
+            $response = $this->model->saveNewBlogPost($data, $postId);
 
             echo json_encode($response);
 

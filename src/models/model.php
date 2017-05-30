@@ -31,14 +31,27 @@
         }
 
         /**
-         * The purpose of this function is to execute a query
-         * 
-         * @param  string $sql       SQL code to be run in the query
-         * @param  array $params     Array of parameters to be saved
-         * @param  array $paramTypes Array of parameter types
-         * @return array|false       Array containg the data from the query
+         * The purpose of this function is return the types of all elements in an array as a string
+         *
+         * @access public
+         * @param  array  $array An array with data
+         * @return string $str   A string containing the types of all array elements
          */
-        
+        public function getArrayElementTypes($array)
+        {
+
+            $str = "";
+
+            if (is_array($array) && count($array) > 0) {
+
+                foreach ($array as $element) {
+                   $str .= substr(gettype($element) , 0, 1);
+                }
+
+            }
+
+            return $str;
+        }
 
         public function get_func_arg_names($funcName)
         {

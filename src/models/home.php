@@ -1,9 +1,9 @@
 <?php
 
-	class HomeModel extends BaseModel
-	{
+    class HomeModel extends BaseModel
+    {
 
-		public function __construct()
+        public function __construct()
         {
             parent::__construct();
         }
@@ -21,6 +21,34 @@
 
             return $response;
 
+        }
+
+        /**
+         * The purpose of this function is to retrieve a blog post by some criteria
+         *
+         * @todo   I need a function to create the WHERE clause based on what has been given
+         * @access public
+         * @return array $response An array of response data 
+         */
+        public function retrieveBlogPostBy($userId = null, $postId = null)
+        {
+
+            $sql      = "SELECT * FROM wordwarehouse.posts WHERE id = ? AND user_id = ?";
+            $response = $this->executeQuery($sql, "ii", array($postId, $user_id));
+
+            return $response;
+        }
+
+        public function createBlogPost($paramValues)
+        {
+            $sql  = "INSERT INTO wordwarehouse.posts " .
+                "(id, user_id, title, description, content, timestamp, author)" .
+                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            $paramTypes = $this->getArrayElementTypes($paramValues);
+            $response   = $this->executeQuery($sql, $paramTypes, $paramValues);
+
+            return $response;
         }
 
         /**
@@ -68,7 +96,7 @@
             if (!empty($searchConditions)) {
 
                 if (count($searchConditions) == 2
-                	&& !$query->bind_param($parameters, $searchValues[0], $searchValues[1])) {
+                    && !$query->bind_param($parameters, $searchValues[0], $searchValues[1])) {
 
                     $response['message'] = "Binding parameters failed: (" . $query->errno . ") " . $query->error;
                     $response['success'] = false;
@@ -110,6 +138,6 @@
             return $response;
 
         }
-	}
+    }
 
 ?>

@@ -16,8 +16,7 @@
         public function retrieveAllBlogPosts()
         {
 
-            $sql      = "SELECT * FROM wordwarehouse.posts";
-            $response = $this->executeQuery($sql);
+            $response = $this->retrieveAll('posts');
 
             return $response;
 
@@ -33,12 +32,44 @@
         public function retrieveBlogPostBy($userId = null, $postId = null)
         {
 
+<<<<<<< HEAD
             $sql      = "SELECT * FROM wordwarehouse.posts WHERE id = ? AND user_id = ?";
             $response = $this->executeQuery($sql, "ii", array($postId, $user_id));
+=======
+            $params   = array();
+            $values   = array();
+            $response = array('success' => false);
+
+            if ((!is_numeric($userId) && $userId <= 0) && (!is_numeric($postId) && $postId <= 0) {
+                $response['message'] = 'Please provide values for the parameter data.';
+                return $response;
+            }
+
+            if (is_numeric($userId) && $userId > 0) {
+                $params[] = "user_id";
+                $values[] = $userId;
+            }
+
+            if (is_numeric($postId) && $postId > 0) {
+                $params[] = "id";
+                $values[] = $postId;
+            } 
+
+            if (count($params) === 0 || count($values) === 0) {
+                $response['message'] = 'Please provide parameter data.';
+                return $response;
+            }
+
+            $response = $this->model->retrieveAllBy('posts', $params, $values);
+>>>>>>> 779d11b2b890bd34b168c0d57788c2efef8af928
 
             return $response;
         }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 779d11b2b890bd34b168c0d57788c2efef8af928
         public function createBlogPost($paramValues)
         {
             $sql  = "INSERT INTO wordwarehouse.posts " .
@@ -46,7 +77,11 @@
                 " VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             $paramTypes = $this->getArrayElementTypes($paramValues);
+<<<<<<< HEAD
             $response   = $this->executeQuery($sql, $paramTypes, $paramValues);
+=======
+            $response   = $this->db->executeQuery($sql, $paramTypes, $paramValues);
+>>>>>>> 779d11b2b890bd34b168c0d57788c2efef8af928
 
             return $response;
         }

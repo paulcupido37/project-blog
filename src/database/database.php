@@ -18,7 +18,7 @@
 
             if (is_string($database) && !empty($database)) {
 
-                $this->db = new mysqli("localhost", "root", "", $database);
+                $this->db = new mysqli(SERVER, USERNAME, PASSWORD, $database);
 
                 if ($this->db->connect_errno) {
                     echo "Failed to connect to MySQL: (" . $this->db->connect_errno . ") " . $this->db->connect_error;
@@ -61,7 +61,6 @@
                return $response;
             }
 
-            // Work around to deal with the fact that MSQLI does not natively allow for binding an array to a query
             call_user_func_array(array($query, 'bind_param', $paramTypes, $paramValues);
 
             if (!$query->execute()) {

@@ -13,6 +13,12 @@
             parent::__destruct();
         }
 
+        /**
+         * The purpose of this function is to retrieve all blog posts
+         *
+         * @access public
+         * @return array $response An array of response data
+         */
         public function retrieveAllBlogPosts()
         {
 
@@ -32,10 +38,6 @@
         public function retrieveBlogPostBy($userId = null, $postId = null)
         {
 
-<<<<<<< HEAD
-            $sql      = "SELECT * FROM wordwarehouse.posts WHERE id = ? AND user_id = ?";
-            $response = $this->executeQuery($sql, "ii", array($postId, $user_id));
-=======
             $params   = array();
             $values   = array();
             $response = array('success' => false);
@@ -61,27 +63,6 @@
             }
 
             $response = $this->model->retrieveAllBy('posts', $params, $values);
->>>>>>> 779d11b2b890bd34b168c0d57788c2efef8af928
-
-            return $response;
-        }
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 779d11b2b890bd34b168c0d57788c2efef8af928
-        public function createBlogPost($paramValues)
-        {
-            $sql  = "INSERT INTO wordwarehouse.posts " .
-                "(id, user_id, title, description, content, timestamp, author)" .
-                " VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-            $paramTypes = $this->getArrayElementTypes($paramValues);
-<<<<<<< HEAD
-            $response   = $this->executeQuery($sql, $paramTypes, $paramValues);
-=======
-            $response   = $this->db->executeQuery($sql, $paramTypes, $paramValues);
->>>>>>> 779d11b2b890bd34b168c0d57788c2efef8af928
 
             return $response;
         }
@@ -173,6 +154,76 @@
             return $response;
 
         }
+
+        /**
+         * The purpose of this function is to create a new blog post
+         *
+         * @access public
+         * @param  array $params An array of params
+         * @param  array $values An array of values
+         * @return array
+         */
+        public function createNewBlogPost($params = null, $values = null)
+        {
+
+            $response['success'] = false;
+            $paramCount          = count($params);
+            $valueCount          = count($values);
+
+            if (is_array($params)
+                && $valueCount > 0
+                && is_array($values)
+                && $valueCount > 0
+                && $valueCount === $paramCount) {
+
+                $response = $this->db->insertInto('posts', array('title', 'series', 'content'), $values);
+
+            } else {
+
+                $response['message'] = 'Error with parameters and values';
+
+            }
+
+            return $response;
+
+
+        }
+
+        /**
+         * The purpose of this function is to update an existing blog post
+         *
+         * @access public
+         * @param  array $params An array of parameters
+         * @param  array $values An array of values
+         * @return array
+         */
+        public function updateExistingBlogPost($params = null, $values = null)
+        {
+
+            $response['success'] = false;
+            $paramCount          = count($params);
+            $valueCount          = count($values);
+
+            if (is_array($params)
+                && $valueCount > 0
+                && is_array($values)
+                && $valueCount > 0
+                && $valueCount === $paramCount) {
+
+                $sql = 'UPDATE wordwarehouse.posts SET id = ?, title = ?, series = ?, content = ?';
+
+                $response = $this->db->executeQuery($sql, array('i', 's', 's', 's'), $values);
+
+            } else {
+
+                $response['message'] = 'Error with parameters and values';
+
+            }
+
+            return $response;
+
+        }
+
     }
 
 ?>

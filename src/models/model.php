@@ -9,7 +9,6 @@
     class BaseModel
     {
 
-
         /**
          * The purpose of this variable is A database connection
          * 
@@ -41,14 +40,6 @@
         }
 
         /**
-<<<<<<< HEAD
-         * The purpose of this function is return the types of all elements in an array as a string
-         *
-         * @access public
-         * @param  array  $array An array with data
-         * @return string $str   A string containing the types of all array elements
-         */
-=======
          * The purpose of this function is to retrieve data from a particular table
          *
          * @access public
@@ -72,14 +63,13 @@
         }
 
         /**
-         * The purpose of this function is to retrieve data from a particular table based on certain parameter vales
+         * The purpose of this function is to retrieve data from a particular table based on certain parameter values
          *
          * @access public
          * @param  string $table Table name
          * @param  array  $params An array of parameter names
          * @param  array  $values An array of parameter values
          * @return array  An array of response data
-         *
          */
         public function retrieveAllBy($table = null, $params = null, $values = null)
         {
@@ -105,8 +95,46 @@
 
             $sql   = "SELECT {$expression} FROM {$database}.{$table} WHERE {$conditions}";
             $types = $this->getArrayElementTypes($values);
-            
-            return $this->db->executeQuery($types, $values);
+
+            return $this->db->executeQuery($sql, $types, $values);
+
+        }
+
+        /**
+         * The purpose of this function is to insert data into a particular table
+         *
+         * @access public
+         * @param  string $table  Table name
+         * @param  array  $params An array of parameter names
+         * @param  array  $values An array of parameter values
+         * @return array
+         */
+        public function insertInto($table = null, $params, $values = null)
+        {
+
+            if (!is_string($table) || empty($table)) {
+                $response['message'] = "Incorrect parameter data passed to query";
+                return $response;
+            }
+
+            if (!is_array($params) || count($params) <= 0) {
+                $response['message'] = "Please provide parameters";
+                return $response;
+            }
+
+            if (!is_array($values) || count($values) <= 0) {
+                $response['message'] = "Please provide values";
+                return $response;
+            }
+
+            $expression = implode($params, ",");
+            $variables  = implode(array_fill(0, count($values), "?"), ",");
+
+            $sql        = "INSERT INTO {$database}.{$table} ({$expression}) VALUES ({variables})";
+            $types      = $this->getArrayElementTypes($values);
+
+            return $this->db->executeQuery($sql, $types, $values);
+
         }
 
         /**
@@ -116,7 +144,6 @@
          * @param  array  $array An array with data
          * @return string $str   A string containing the types of all array elements
          */
->>>>>>> 779d11b2b890bd34b168c0d57788c2efef8af928
         public function getArrayElementTypes($array)
         {
 

@@ -18,7 +18,19 @@
         {
             parent::__destruct();
         }
-    
+
+        public function createBlogPost($paramValues)
+        {
+            $sql  = "INSERT INTO wordwarehouse.posts " .
+                "(id, user_id, title, description, content, timestamp, author)" .
+                " VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            $paramTypes = $this->getArrayElementTypes($paramValues);
+            $response   = $this->db->executeQuery($sql, $paramTypes, $paramValues);
+
+            return $response;
+        }
+
         /**
          * The purpose of this function is to load post data
          *

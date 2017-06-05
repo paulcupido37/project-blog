@@ -28,6 +28,12 @@
 
         }
 
+        /**
+         * The purpose of this function is to display the user's dashbaord
+         *
+         * @access public
+         * @return void
+         */
         public function dashboard()
         {
 
@@ -50,6 +56,70 @@
             $this->display('src/views/home/dashboard.html');
         
         }
+
+        /**
+         * The purpose of this function is to create a new blog post
+         *
+         * @access public
+         * @return void
+         */
+        public function createNewBlogPost()
+        {
+
+            $data['title']   = filter_input(INPUT_POST, 'blog_title');
+            $data['series']  = filter_input(INPUT_POST, 'blog_series');
+            $data['content'] = filter_input(INPUT_POST, 'blog_content');
+
+            // need to run my own validation check on each of the parameters here
+
+            if (!empty($data['title']) && !empty($data['series']) && !empty($data['content'])) {
+
+                $params   = array('title', 'series', 'content');
+                $response = $this->model->createNewBlogPost($params, $data);
+
+            } else {
+
+                $response['success'] = false;
+                $response['message'] = 'Error with content';
+
+            }
+
+            echo json_encode($response);
+
+        }
+
+        /**
+         * The purpose of this function is to update an exiting blog post
+         *
+         * @access public
+         * @return void
+         */
+        public function updateBlogPost()
+        {
+
+            // grab the user id from the session
+            $data['title']   = filter_input(INPUT_POST, 'blog_title');
+            $data['series']  = filter_input(INPUT_POST, 'blog_series');
+            $data['content'] = filter_input(INPUT_POST, 'blog_content');
+
+            // need to run my own validation check on each of the parameters here
+
+            if (!empty($data['title']) && !empty($data['series']) && !empty($data['content'])) {
+
+                $params   = array('title', 'series', 'content');
+                $response = $this->model->updateExistingBlogPost($params, $data);
+
+            } else {
+
+                $response['success'] = false;
+                $response['message'] = 'Error with content';
+
+            }
+
+            echo json_encode($response);
+
+        }
+
 
         public function about()
         {
